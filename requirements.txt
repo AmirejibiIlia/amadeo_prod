@@ -91,7 +91,7 @@ namex==0.0.8
 nest-asyncio==1.6.0
 networkx==3.3
 numexpr==2.8.5
-numpy==1.24.3
+numpy==1.26.0
 oauthlib==3.2.2
 openai==0.27.8
 openapi-schema-pydantic==1.2.4

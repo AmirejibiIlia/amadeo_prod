@@ -7,7 +7,7 @@ from datetime import datetime
 from transformers import BartForConditionalGeneration, BartTokenizer, AutoTokenizer, AutoModel
 import torch
 import gdown
-################################################################################################################################
+################################################################################################################################ მეორე ბლოკკი დავამატე ამის მაგივრად რომ ლოკაციას მიმეგნო
 # # Define Google Drive paths for the models
 # google_drive_path = '/content/drive/My Drive/NLP_models/'
 
@@ -15,35 +15,52 @@ import gdown
 # bart_model_path = google_drive_path + "facebook-bart-large-cnn"
 # finbert_model_path = google_drive_path + "finbert-tone"
 # spacy_model_path = google_drive_path + "en_core_web_sm/en_core_web_sm-3.7.1"
+################################################################################################################################ ქვედა 2 ბლოკი ჩანაცვლდა მესამეთი. ლოკალზე შემოწმება არ მჭირდება და ექსტრა სტეპია.
+# # Define the local directory for saving models
+# local_model_dir = './NLP_models/'
+
+# # Paths to the saved models locally
+# bart_model_path = os.path.join(local_model_dir, "facebook-bart-large-cnn")
+# finbert_model_path = os.path.join(local_model_dir, "finbert-tone")
+# spacy_model_path = os.path.join(local_model_dir, "en_core_web_sm/en_core_web_sm-3.7.1")
 ################################################################################################################################
-# Define the local directory for saving models
-local_model_dir = './NLP_models/'
+# # Ensure models are downloaded from Google Drive
+# if not os.path.exists(bart_model_path):
+#     gdown.download_folder("https://drive.google.com/drive/folders/1DkPKPFN1Lw1KRbMvidpnFNWa_jI7dM-U?dmr=1&ec=wgc-drive-globalnav-goto", output=bart_model_path)
 
-# Paths to the saved models locally
-bart_model_path = os.path.join(local_model_dir, "facebook-bart-large-cnn")
-finbert_model_path = os.path.join(local_model_dir, "finbert-tone")
-spacy_model_path = os.path.join(local_model_dir, "en_core_web_sm/en_core_web_sm-3.7.1")
-################################################################################################################################
-# Ensure models are downloaded from Google Drive
-if not os.path.exists(bart_model_path):
-    gdown.download_folder("https://drive.google.com/drive/folders/1DkPKPFN1Lw1KRbMvidpnFNWa_jI7dM-U?dmr=1&ec=wgc-drive-globalnav-goto", output=bart_model_path)
+# if not os.path.exists(finbert_model_path):
+#     gdown.download_folder("https://drive.google.com/drive/folders/1-xqTegrP07OoBCsdcK-JeiDlORvFbh96?dmr=1&ec=wgc-drive-globalnav-goto", output=finbert_model_path)
 
-if not os.path.exists(finbert_model_path):
-    gdown.download_folder("https://drive.google.com/drive/folders/1-xqTegrP07OoBCsdcK-JeiDlORvFbh96?dmr=1&ec=wgc-drive-globalnav-goto", output=finbert_model_path)
+# if not os.path.exists(spacy_model_path):
+#     gdown.download_folder("https://drive.google.com/drive/folders/1-sxbDEMhTTcyFRKfIk4GfuC2rA6j2ZPv?dmr=1&ec=wgc-drive-globalnav-goto", output=spacy_model_path)
+########################
 
-if not os.path.exists(spacy_model_path):
-    gdown.download_folder("https://drive.google.com/drive/folders/1-sxbDEMhTTcyFRKfIk4GfuC2rA6j2ZPv?dmr=1&ec=wgc-drive-globalnav-goto", output=spacy_model_path)
+# Define Google Drive links for the models
+bart_model_link = "https://drive.google.com/drive/folders/1DkPKPFN1Lw1KRbMvidpnFNWa_jI7dM-U?dmr=1&ec=wgc-drive-globalnav-goto"
+finbert_model_link = "https://drive.google.com/drive/folders/1-xqTegrP07OoBCsdcK-JeiDlORvFbh96?dmr=1&ec=wgc-drive-globalnav-goto"
+spacy_model_link = "https://drive.google.com/drive/folders/1-sxbDEMhTTcyFRKfIk4GfuC2rA6j2ZPv?dmr=1&ec=wgc-drive-globalnav-goto"
 
+# Function to download and load models
+def download_and_load_model(link, model_type):
+    temp_dir = f"/tmp/{model_type}_model"
+    gdown.download_folder(link, output=temp_dir)
+    return temp_dir
+
+# Download and load models
+bart_path = download_and_load_model(bart_model_link, "bart")
+finbert_path = download_and_load_model(finbert_model_link, "finbert")
+spacy_path = download_and_load_model(spacy_model_link, "spacy")
+########################
 # Load models
-nlp = spacy.load(spacy_model_path)
+nlp = spacy.load(spacy_model_link)
 
 # Load the BART model and tokenizer
-tokenizer = BartTokenizer.from_pretrained(bart_model_path)
-bart_model = BartForConditionalGeneration.from_pretrained(bart_model_path)
+tokenizer = BartTokenizer.from_pretrained(bart_model_link)
+bart_model = BartForConditionalGeneration.from_pretrained(bart_model_link)
 
 # Load the FinBERT model and tokenizer
-finbert_tokenizer = AutoTokenizer.from_pretrained(finbert_model_path)
-finbert_model = AutoModel.from_pretrained(finbert_model_path)
+finbert_tokenizer = AutoTokenizer.from_pretrained(finbert_model_link)
+finbert_model = AutoModel.from_pretrained(finbert_model_link)
 ###########################################################################################################
 
 # Streamlit app title

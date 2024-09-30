@@ -52,15 +52,15 @@ finbert_path = download_and_load_model(finbert_model_link, "finbert")
 spacy_path = download_and_load_model(spacy_model_link, "spacy")
 ########################
 # Load models
-nlp = spacy.load(spacy_model_link)
+nlp = spacy.load(spacy_path)
 
 # Load the BART model and tokenizer
-tokenizer = BartTokenizer.from_pretrained(bart_model_link)
-bart_model = BartForConditionalGeneration.from_pretrained(bart_model_link)
+tokenizer = BartTokenizer.from_pretrained(bart_path)
+bart_model = BartForConditionalGeneration.from_pretrained(bart_path)
 
 # Load the FinBERT model and tokenizer
-finbert_tokenizer = AutoTokenizer.from_pretrained(finbert_model_link)
-finbert_model = AutoModel.from_pretrained(finbert_model_link)
+finbert_tokenizer = AutoTokenizer.from_pretrained(finbert_path)
+finbert_model = AutoModel.from_pretrained(finbert_path)
 ###########################################################################################################
 
 # Streamlit app title

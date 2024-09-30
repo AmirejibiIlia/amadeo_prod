@@ -7,15 +7,23 @@ from datetime import datetime
 from transformers import BartForConditionalGeneration, BartTokenizer, AutoTokenizer, AutoModel
 import torch
 import gdown
+################################################################################################################################
+# # Define Google Drive paths for the models
+# google_drive_path = '/content/drive/My Drive/NLP_models/'
 
-# Define Google Drive paths for the models
-google_drive_path = '/content/drive/My Drive/NLP_models/'
+# # Paths to the saved models
+# bart_model_path = google_drive_path + "facebook-bart-large-cnn"
+# finbert_model_path = google_drive_path + "finbert-tone"
+# spacy_model_path = google_drive_path + "en_core_web_sm/en_core_web_sm-3.7.1"
+################################################################################################################################
+# Define the local directory for saving models
+local_model_dir = './NLP_models/'
 
-# Paths to the saved models
-bart_model_path = google_drive_path + "facebook-bart-large-cnn"
-finbert_model_path = google_drive_path + "finbert-tone"
-spacy_model_path = google_drive_path + "en_core_web_sm/en_core_web_sm-3.7.1"
-
+# Paths to the saved models locally
+bart_model_path = os.path.join(local_model_dir, "facebook-bart-large-cnn")
+finbert_model_path = os.path.join(local_model_dir, "finbert-tone")
+spacy_model_path = os.path.join(local_model_dir, "en_core_web_sm/en_core_web_sm-3.7.1")
+################################################################################################################################
 # Ensure models are downloaded from Google Drive
 if not os.path.exists(bart_model_path):
     gdown.download_folder("https://drive.google.com/drive/folders/1DkPKPFN1Lw1KRbMvidpnFNWa_jI7dM-U?dmr=1&ec=wgc-drive-globalnav-goto", output=bart_model_path)
